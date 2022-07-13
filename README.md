@@ -3,6 +3,9 @@
 This is the tunnel-cni plugin with its DaemonSet to setup the tunnel-cni plugin in a kubernetes cluster. 
 The tunnel-cni uses tunneling backend for pod-to-pod communications between pods in different nodes. There are 
 two tunneling technologies, vxlan and geneve. The default backend is vxlan. Geneve tunneling will be available soon.
+In addition to the `backend` technology choice, the vni `id`, the `dstport`, and the `qlen` of the interface device
+default to "1", "8472", and "0". They can be changed through command line arguments such as "-backend=vxlan", "-id=1", 
+"-dstport=8472", and "-qlen=0".
 
 The tunnel-cni uses the 
 `bridge` plugin to create veth pairs between the bridge and the containers. The `bridge` plugin calls the `host-local` plugin for 
