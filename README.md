@@ -18,7 +18,7 @@ We first need a K8s cluster, which can be done by any of the following approache
 - [Kubeadm](docs/kubeadm.md)
 - [Kind](docs/kind.md)
 
-## Install the bash-cni plugin
+## Install the tunnel-cni plugin
 
 You can pull the `cericwu/tunnel` image first. Or you could build your own image using the `docker build -t <your_image_name> .` command. Here we use the `cericwu/bashcni` image. Usually we don't need to pull the image. It is used here to make sure that you have access to the docker repository. If not, you need to install docker using the command `sudo apt install docker-ce docker-ce-cli docker.io`.
 
