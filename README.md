@@ -1,4 +1,4 @@
-# Setting up the bash-cni plugin in a Kubernetes cluster
+# Setting up the tunnel-cni plugin in a Kubernetes cluster
 
 This is the tunnel-cni plugin with its DaemonSet to setup the tunnel-cni plugin in a kubernetes cluster. 
 The tunnel-cni uses tunneling backend for pod-to-pod communications between pods in different nodes. There are 
