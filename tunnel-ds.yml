@@ -1,0 +1,83 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: tunnel
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: [""]
+  resources: ["nodes/status"]
+  verbs: ["patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tunnel
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tunnel
+subjects:
+- kind: ServiceAccount
+  name: tunnel
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tunnel
+  namespace: kube-system
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tunnel
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: tunnel
+  template:
+    metadata:
+      labels:
+        app: tunnel
+    spec:
+      tolerations:
+      - operator: Exists
+        effect: NoSchedule
+      serviceAccount: tunnel
+      hostNetwork: true
+      hostPID: true
+      priorityClassName: system-node-critical
+      initContainers:
+      - name: install-cni-plugin
+        image: cericwu/tunnel
+        command:
+        - cp
+        args:
+        - -f
+        - /bash-cni
+        - /opt/cni/bin
+        volumeMounts:
+        - name: cni-plugin
+          mountPath: /opt/cni/bin
+      containers:
+      - name: tunnel
+        image: cericwu/tunnel
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
+        volumeMounts:
+        - name: cni
+          mountPath: /etc/cni/net.d
+      volumes:
+      - name: cni-plugin
+        hostPath:
+          path: /opt/cni/bin
+      - name: cni
+        hostPath:
+          path: /etc/cni/net.d
