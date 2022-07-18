@@ -44,7 +44,7 @@ spec:
         command:
         - cp
         args:
-        - -f
+        - /bridge
         - /tunnel-cni
         - /opt/cni/bin
         volumeMounts:
