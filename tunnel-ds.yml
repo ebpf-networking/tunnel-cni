@@ -60,7 +60,7 @@ spec:
         - cp
         args:
         - -f
-        - /bash-cni
+        - /tunnel-cni
         - /opt/cni/bin
         volumeMounts:
         - name: cni-plugin
