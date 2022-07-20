@@ -254,6 +254,12 @@ loop:
             vtepmac(address[index][0], ifname, address[index][1], cmdStr)
         }
 
+        // Set up IP address for devName
+        args = []string{"addr", "add", ip_address, "dev", devName}
+        output, err = runcmd("ip", args, true)
+        if err != nil {
+            fmt.Println("Error:", output)
+        }
         // Bring up devName
         args = []string{"link", "set", devName, "up"}
         output, err = runcmd("ip", args, true)
