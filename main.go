@@ -255,7 +255,7 @@ loop:
         }
 
         // Set up IP address for devName
-        args = []string{"addr", "add", ip_address, "dev", devName}
+        args = []string{"addr", "add", cmdStr, "dev", devName}
         output, err = runcmd("ip", args, true)
         if err != nil {
             fmt.Println("Error:", output)
