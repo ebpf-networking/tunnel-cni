@@ -94,7 +94,7 @@ $ kubectl exec -it pod1 -- sh
 / # ping 185.125.190.29                 // IP address of ubuntu.com
 ```
 
-The connection to all the above should be OK after the bashcni daemonset is installed.
+The connection to all the above should be OK after the daemonset is installed.
 
 ## Deleting the daemonset
 
