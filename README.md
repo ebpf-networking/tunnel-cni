@@ -63,7 +63,7 @@ The output will show several tunnel pods running, one on each node.
 
 ## Deploy a few pods in the kubernetes cluster
 
-We want to deploy a few pods to test the bash-cni plugin.
+We want to deploy a few pods to test the tunnel-cni plugin.
 
 
 ```
